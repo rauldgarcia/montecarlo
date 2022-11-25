@@ -84,7 +84,6 @@ for i in range(1,k):
     else:
         xn=np.append(xn,x)
         yn=np.append(yn,y)
-    oldpi=pi
     pi=4*cont/i
     vpi=np.append(vpi,pi)
 
@@ -124,7 +123,6 @@ for i in range(1,k):
     else:
         xn=np.append(xn,x)
         yn=np.append(yn,y)
-    oldpi=pi
     pi=4*cont/i
     vpi=np.append(vpi,pi)
 
@@ -159,7 +157,6 @@ for i in range(1,k):
     else:
         xn=np.append(xn,x)
         yn=np.append(yn,y)
-    oldpi=pi
     pi=4*cont/i
     vpi=np.append(vpi,pi)
 
