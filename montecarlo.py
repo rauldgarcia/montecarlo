@@ -58,7 +58,7 @@ yn=np.array([])
 vpi=np.array([])
 pi=0.1
 
-for i in range(k):
+for i in range(1,k):
     #x0>=0, a>=0, b>=0, m>=x0 and  m>=a
     x0=random.randint(1,10)
     a=random.randint(1,10)
@@ -85,7 +85,7 @@ for i in range(k):
         xn=np.append(xn,x)
         yn=np.append(yn,y)
     oldpi=pi
-    pi=4*cont/k
+    pi=4*cont/i
     vpi=np.append(vpi,pi)
 
 plt.subplot(2,3,1)
@@ -113,7 +113,7 @@ seq=np.array(halton_sequence(k,2))
 for a in range(2):
     for j in range(k):
         seq[a][j]=seq[a][j]*random.choice((-1,1))
-for i in range(k):
+for i in range(1,k):
     x=seq[0][i]
     y=seq[1][i]
     rad=math.sqrt((x**2)+(y**2))
@@ -125,7 +125,7 @@ for i in range(k):
         xn=np.append(xn,x)
         yn=np.append(yn,y)
     oldpi=pi
-    pi=4*cont/k
+    pi=4*cont/i
     vpi=np.append(vpi,pi)
 
 plt.subplot(2,3,2)
@@ -150,7 +150,7 @@ yn=np.array([])
 vpi=np.array([])
 pi=0.1
 
-for i in range(k):
+for i in range(1,k):
     x,y,rad=random3()
     if rad<=1:
         cont+=1
@@ -160,7 +160,7 @@ for i in range(k):
         xn=np.append(xn,x)
         yn=np.append(yn,y)
     oldpi=pi
-    pi=4*cont/k
+    pi=4*cont/i
     vpi=np.append(vpi,pi)
 
 plt.subplot(2,3,3)
