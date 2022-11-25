@@ -49,8 +49,6 @@ def random3():
 
     return x,y,rad
 
-
-
 #Congruencia lineal
 cont=0
 xs=np.array([])
@@ -100,7 +98,8 @@ plt.ylim(-1,1)
 plt.subplot(2,3,4)
 tit="Grafica de valor de pi estimado:"+str(pi)
 plt.title(tit)
-plt.plot(vpi)
+plt.plot(vpi,'g')
+plt.hlines(y=math.pi,xmin=0,xmax=k)
 
 #Halton sequence
 cont=0
@@ -139,7 +138,8 @@ plt.ylim(-1,1)
 plt.subplot(2,3,5)
 tit="Grafica de valor de pi estimado:"+str(pi)
 plt.title(tit)
-plt.plot(vpi)
+plt.plot(vpi,'g')
+plt.hlines(y=math.pi,xmin=0,xmax=k)
 
 #libreria python
 cont=0
@@ -173,6 +173,7 @@ plt.ylim(-1,1)
 plt.subplot(2,3,6)
 tit="Grafica de valor de pi estimado:"+str(pi)
 plt.title(tit)
-plt.plot(vpi)
+plt.plot(vpi,'g')
+plt.hlines(y=math.pi,xmin=0,xmax=k)
 
 plt.show()
