@@ -3,22 +3,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
-k=100
-cont=0
-
-xs=np.array([])
-ys=np.array([])
-xn=np.array([])
-yn=np.array([])
-vpi=np.array([])
-pi=0.1
+k=100000
 
 #random congruencia lineal
 def random1( x0, a, b, m):
-    (a*x0 + b) % m
-    return (a*x0 + b) % m;
+    aux=(a*x0 + b) % m;
+    return aux/10
 
-
+#random Secuencia de Halton
 def next_prime():
     def is_prime(num):
         "Checks if num is a prime value"
@@ -57,14 +49,36 @@ def random3():
 
     return x,y,rad
 
-#Halton sequence
-aux=np.array(halton_sequence(k,2))
-print(np.shape(aux))
+
+
+#Congruencia lineal
+cont=0
+xs=np.array([])
+ys=np.array([])
+xn=np.array([])
+yn=np.array([])
+vpi=np.array([])
+pi=0.1
+
 for i in range(k):
-    x=aux[0][k-1]
-    y=aux[1][k-1]
+    #x0>=0, a>=0, b>=0, m>=x0 and  m>=a
+    x0=random.randint(1,10)
+    a=random.randint(1,10)
+    b=random.randint(1,10)
+    if x0>a:
+        m=random.randint(x0,10)
+    else:
+        m=random.randint(a,10)
+    x=(random1(x0,a,b,m))*random.choice((-1,1))
+    x0=random.randint(1,10)
+    a=random.randint(1,10)
+    b=random.randint(1,10)
+    if x0>a:
+        m=random.randint(x0,10)
+    else:
+        m=random.randint(a,10)
+    y=(random1(x0,a,b,m))*random.choice((-1,1))
     rad=math.sqrt((x**2)+(y**2))
-    print(x)
     if rad<=1:
         cont+=1
         xs=np.append(xs,x)
@@ -76,14 +90,55 @@ for i in range(k):
     pi=4*cont/k
     vpi=np.append(vpi,pi)
 
-print(pi)
+plt.subplot(2,3,1)
+plt.title("Secuencia de Halton como generador")
+plt.scatter(xs,ys)
+plt.scatter(xn,yn)
+plt.xlim(-1,1)
+plt.ylim(-1,1)
+
+plt.subplot(2,3,4)
+tit="Grafica de valor de pi estimado:"+str(pi)
+plt.title(tit)
+plt.plot(vpi)
+
+#Halton sequence
+cont=0
+xs=np.array([])
+ys=np.array([])
+xn=np.array([])
+yn=np.array([])
+vpi=np.array([])
+pi=0.1
+seq=np.array(halton_sequence(k,2))
+for a in range(2):
+    for j in range(k):
+        seq[a][j]=seq[a][j]*random.choice((-1,1))
+for i in range(k):
+    x=seq[0][i]
+    y=seq[1][i]
+    rad=math.sqrt((x**2)+(y**2))
+    if rad<=1:
+        cont+=1
+        xs=np.append(xs,x)
+        ys=np.append(ys,y)
+    else:
+        xn=np.append(xn,x)
+        yn=np.append(yn,y)
+    oldpi=pi
+    pi=4*cont/k
+    vpi=np.append(vpi,pi)
+
 plt.subplot(2,3,2)
 plt.title("Secuencia de Halton como generador")
 plt.scatter(xs,ys)
 plt.scatter(xn,yn)
+plt.xlim(-1,1)
+plt.ylim(-1,1)
 
 plt.subplot(2,3,5)
-plt.title("Grafica de valor de pi estimado")
+tit="Grafica de valor de pi estimado:"+str(pi)
+plt.title(tit)
 plt.plot(vpi)
 
 #libreria python
@@ -108,15 +163,16 @@ for i in range(k):
     pi=4*cont/k
     vpi=np.append(vpi,pi)
 
-print(pi)
-
 plt.subplot(2,3,3)
 plt.title("Montecarlo generador python")
 plt.scatter(xs,ys)
 plt.scatter(xn,yn)
+plt.xlim(-1,1)
+plt.ylim(-1,1)
 
 plt.subplot(2,3,6)
-plt.title("Grafica de valor de pi estimado")
+tit="Grafica de valor de pi estimado:"+str(pi)
+plt.title(tit)
 plt.plot(vpi)
 
 plt.show()
