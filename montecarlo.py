@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
-k=100000
+k=10
 
 #random congruencia lineal
 def random1( x0, a, b, m):
     aux=(a*x0 + b) % m;
-    return aux/10
+    return aux
 
 #random Secuencia de Halton
 def next_prime():
@@ -57,38 +57,29 @@ xn=np.array([])
 yn=np.array([])
 vpi=np.array([])
 pi=0.1
-
+x0=3
 for i in range(1,k):
     #x0>=0, a>=0, b>=0, m>=x0 and  m>=a
-    x0=random.randint(1,10)
-    a=random.randint(1,10)
-    b=random.randint(1,10)
-    if x0>a:
-        m=random.randint(x0,10)
-    else:
-        m=random.randint(a,10)
+    a=214013
+    b=2531011
+    m=2**32
     x=(random1(x0,a,b,m))*random.choice((-1,1))
-    x0=random.randint(1,10)
-    a=random.randint(1,10)
-    b=random.randint(1,10)
-    if x0>a:
-        m=random.randint(x0,10)
-    else:
-        m=random.randint(a,10)
+    x0=x
     y=(random1(x0,a,b,m))*random.choice((-1,1))
-    rad=math.sqrt((x**2)+(y**2))
+    rad=math.sqrt(((x/(m-1))**2)+((y/(m-1))**2))
     if rad<=1:
         cont+=1
-        xs=np.append(xs,x)
-        ys=np.append(ys,y)
+        xs=np.append(xs,(x/(m-1)))
+        ys=np.append(ys,(y/(m-1)))
     else:
-        xn=np.append(xn,x)
-        yn=np.append(yn,y)
+        xn=np.append(xn,(x/(m-1)))
+        yn=np.append(yn,(y/(m-1)))
     pi=4*cont/i
     vpi=np.append(vpi,pi)
+    x0=x
 
 plt.subplot(2,3,1)
-plt.title("Secuencia de Halton como generador")
+plt.title("Congruencia lineal como generador")
 plt.scatter(xs,ys)
 plt.scatter(xn,yn)
 plt.xlim(-1,1)
